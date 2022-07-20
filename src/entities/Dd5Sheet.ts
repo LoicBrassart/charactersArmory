@@ -1,29 +1,55 @@
 import { Skill, SkillsDefaultStats, Stat } from "./types";
 
-export interface iCharacter {
+export interface iDd5Sheet {
   str?: number;
   dex?: number;
   con?: number;
   int?: number;
   wis?: number;
   cha?: number;
+  race?: string;
+  classes?: Array<string>;
 }
 
-export default class Character {
+export default class Dd5Sheet {
   private _STR: number = 10;
   private _DEX: number = 10;
   private _CON: number = 10;
   private _INT: number = 10;
   private _WIS: number = 10;
   private _CHA: number = 10;
+  private _race: string;
+  private _classes: Array<string>;
 
-  constructor(data: iCharacter) {
+  constructor(data: iDd5Sheet) {
     this.str = data.str || 10;
     this.dex = data.dex || 10;
     this.con = data.con || 10;
     this.int = data.int || 10;
     this.wis = data.wis || 10;
     this.cha = data.cha || 10;
+    this._race = data.race || "Human";
+    this._classes = data.classes || ["Warrior"];
+  }
+  public export() {
+    const data: iDd5Sheet = {
+      str: this._STR,
+      dex: this._DEX,
+      con: this._CON,
+      int: this._INT,
+      wis: this._WIS,
+      cha: this._CHA,
+      race: this._race,
+      classes: this._classes,
+    };
+    return data;
+  }
+
+  public get classes() {
+    return this._classes;
+  }
+  public set addClass(newClass: string) {
+    this._classes.push(newClass);
   }
 
   public get str() {
